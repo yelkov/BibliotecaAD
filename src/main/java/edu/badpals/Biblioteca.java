@@ -57,16 +57,15 @@ public class Biblioteca {
     }
 
     public void guardarPublicacion(Publicacion publicacion){
-        String ruta;
+        publicaciones.add(publicacion);
+
         if(publicacion instanceof Revista){
-            ruta = RUTA_REVISTAS;
+            guardar(revistas,RUTA_REVISTAS);
         } else if (publicacion instanceof Libro) {
-            ruta = RUTA_LIBROS;
+            guardar(libros,RUTA_LIBROS);
         }else{
             return;
         }
-        this.publicaciones.add(publicacion);
-        guardar(publicaciones,ruta);
         }
 
     public void guardarPublicaciones(){
@@ -86,17 +85,17 @@ public class Biblioteca {
     }
 
     public Set<Publicacion> leerPublicaciones(String ruta) {
-        Set<Publicacion> publicaciones = new HashSet<>();
+        Set<Publicacion> publicacionesLeidas = new HashSet<>();
 
         File archivo = new File(ruta);
         if (!archivo.exists() || archivo.length() == 0) {
-            return publicaciones;
+            return publicacionesLeidas;
         }
 
         try (FileInputStream fis = new FileInputStream(ruta);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             while (fis.available() > 0) {
-                publicaciones = (Set<Publicacion>) ois.readObject();
+                publicacionesLeidas = (Set<Publicacion>) ois.readObject();
             }
 
         } catch (IOException e) {
@@ -106,7 +105,7 @@ public class Biblioteca {
             System.out.println("Error al leer publicacion en: " + ruta);
             e.printStackTrace();
         }
-        return publicaciones;
+        return publicacionesLeidas;
     }
 
     public void actualizarPublicacion(Publicacion publicacionActualizada){

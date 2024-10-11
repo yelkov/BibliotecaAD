@@ -31,5 +31,11 @@ public class Main {
         biblioteca.guardarPublicaciones();
         System.out.println(biblioteca.getPublicaciones().toString());
 
+        System.out.println("\nPrintando libros: \n");
+        System.out.println(biblioteca.getLibros().toString());
+
+        System.out.println("\nPrintando revistas: \n");
+        System.out.println(biblioteca.getRevistas().toString());
+
     }
 }
