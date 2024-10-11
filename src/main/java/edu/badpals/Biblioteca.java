@@ -1,10 +1,7 @@
 package edu.badpals;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Biblioteca {
     private static String RUTA_LIBROS ="src/main/resources/libros.bin";
@@ -110,5 +107,18 @@ public class Biblioteca {
             e.printStackTrace();
         }
         return publicaciones;
+    }
+
+    public void actualizarPublicacion(Publicacion publicacionActualizada){
+        publicaciones.remove(publicacionActualizada);
+        publicaciones.add(publicacionActualizada);
+
+        if(publicacionActualizada instanceof Libro){
+            libros.remove(publicacionActualizada);
+            libros.add(publicacionActualizada);
+        } else if (publicacionActualizada instanceof Revista) {
+            revistas.remove(publicacionActualizada);
+            revistas.add(publicacionActualizada);
+        }
     }
 }
